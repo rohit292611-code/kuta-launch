@@ -9,38 +9,314 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UniversitiesRouteImport } from './routes/universities'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServicesRouteImport } from './routes/services'
+import { Route as ScholarshipsRouteImport } from './routes/scholarships'
+import { Route as ProgramsRouteImport } from './routes/programs'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as InstitutionalRouteImport } from './routes/institutional'
+import { Route as FaqsRouteImport } from './routes/faqs'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BlogsRouteImport } from './routes/blogs'
+import { Route as AdmissionsRouteImport } from './routes/admissions'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UniversitiesSlugRouteImport } from './routes/universities.$slug'
 
+const UniversitiesRoute = UniversitiesRouteImport.update({
+  id: '/universities',
+  path: '/universities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScholarshipsRoute = ScholarshipsRouteImport.update({
+  id: '/scholarships',
+  path: '/scholarships',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgramsRoute = ProgramsRouteImport.update({
+  id: '/programs',
+  path: '/programs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InstitutionalRoute = InstitutionalRouteImport.update({
+  id: '/institutional',
+  path: '/institutional',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqsRoute = FaqsRouteImport.update({
+  id: '/faqs',
+  path: '/faqs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogsRoute = BlogsRouteImport.update({
+  id: '/blogs',
+  path: '/blogs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdmissionsRoute = AdmissionsRouteImport.update({
+  id: '/admissions',
+  path: '/admissions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UniversitiesSlugRoute = UniversitiesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => UniversitiesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/blogs': typeof BlogsRoute
+  '/contact': typeof ContactRoute
+  '/faqs': typeof FaqsRoute
+  '/institutional': typeof InstitutionalRoute
+  '/privacy': typeof PrivacyRoute
+  '/programs': typeof ProgramsRoute
+  '/scholarships': typeof ScholarshipsRoute
+  '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
+  '/universities': typeof UniversitiesRouteWithChildren
+  '/universities/$slug': typeof UniversitiesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/blogs': typeof BlogsRoute
+  '/contact': typeof ContactRoute
+  '/faqs': typeof FaqsRoute
+  '/institutional': typeof InstitutionalRoute
+  '/privacy': typeof PrivacyRoute
+  '/programs': typeof ProgramsRoute
+  '/scholarships': typeof ScholarshipsRoute
+  '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
+  '/universities': typeof UniversitiesRouteWithChildren
+  '/universities/$slug': typeof UniversitiesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/admissions': typeof AdmissionsRoute
+  '/blogs': typeof BlogsRoute
+  '/contact': typeof ContactRoute
+  '/faqs': typeof FaqsRoute
+  '/institutional': typeof InstitutionalRoute
+  '/privacy': typeof PrivacyRoute
+  '/programs': typeof ProgramsRoute
+  '/scholarships': typeof ScholarshipsRoute
+  '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
+  '/universities': typeof UniversitiesRouteWithChildren
+  '/universities/$slug': typeof UniversitiesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/blogs'
+    | '/contact'
+    | '/faqs'
+    | '/institutional'
+    | '/privacy'
+    | '/programs'
+    | '/scholarships'
+    | '/services'
+    | '/sitemap.xml'
+    | '/terms'
+    | '/universities'
+    | '/universities/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/blogs'
+    | '/contact'
+    | '/faqs'
+    | '/institutional'
+    | '/privacy'
+    | '/programs'
+    | '/scholarships'
+    | '/services'
+    | '/sitemap.xml'
+    | '/terms'
+    | '/universities'
+    | '/universities/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/admissions'
+    | '/blogs'
+    | '/contact'
+    | '/faqs'
+    | '/institutional'
+    | '/privacy'
+    | '/programs'
+    | '/scholarships'
+    | '/services'
+    | '/sitemap.xml'
+    | '/terms'
+    | '/universities'
+    | '/universities/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AdmissionsRoute: typeof AdmissionsRoute
+  BlogsRoute: typeof BlogsRoute
+  ContactRoute: typeof ContactRoute
+  FaqsRoute: typeof FaqsRoute
+  InstitutionalRoute: typeof InstitutionalRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ProgramsRoute: typeof ProgramsRoute
+  ScholarshipsRoute: typeof ScholarshipsRoute
+  ServicesRoute: typeof ServicesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
+  UniversitiesRoute: typeof UniversitiesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/universities': {
+      id: '/universities'
+      path: '/universities'
+      fullPath: '/universities'
+      preLoaderRoute: typeof UniversitiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scholarships': {
+      id: '/scholarships'
+      path: '/scholarships'
+      fullPath: '/scholarships'
+      preLoaderRoute: typeof ScholarshipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programs': {
+      id: '/programs'
+      path: '/programs'
+      fullPath: '/programs'
+      preLoaderRoute: typeof ProgramsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/institutional': {
+      id: '/institutional'
+      path: '/institutional'
+      fullPath: '/institutional'
+      preLoaderRoute: typeof InstitutionalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faqs': {
+      id: '/faqs'
+      path: '/faqs'
+      fullPath: '/faqs'
+      preLoaderRoute: typeof FaqsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blogs': {
+      id: '/blogs'
+      path: '/blogs'
+      fullPath: '/blogs'
+      preLoaderRoute: typeof BlogsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admissions': {
+      id: '/admissions'
+      path: '/admissions'
+      fullPath: '/admissions'
+      preLoaderRoute: typeof AdmissionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +324,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/universities/$slug': {
+      id: '/universities/$slug'
+      path: '/$slug'
+      fullPath: '/universities/$slug'
+      preLoaderRoute: typeof UniversitiesSlugRouteImport
+      parentRoute: typeof UniversitiesRoute
+    }
   }
 }
 
+interface UniversitiesRouteChildren {
+  UniversitiesSlugRoute: typeof UniversitiesSlugRoute
+}
+
+const UniversitiesRouteChildren: UniversitiesRouteChildren = {
+  UniversitiesSlugRoute: UniversitiesSlugRoute,
+}
+
+const UniversitiesRouteWithChildren = UniversitiesRoute._addFileChildren(
+  UniversitiesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AdmissionsRoute: AdmissionsRoute,
+  BlogsRoute: BlogsRoute,
+  ContactRoute: ContactRoute,
+  FaqsRoute: FaqsRoute,
+  InstitutionalRoute: InstitutionalRoute,
+  PrivacyRoute: PrivacyRoute,
+  ProgramsRoute: ProgramsRoute,
+  ScholarshipsRoute: ScholarshipsRoute,
+  ServicesRoute: ServicesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
+  UniversitiesRoute: UniversitiesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
