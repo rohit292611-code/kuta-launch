@@ -40,7 +40,7 @@ export const Route = createFileRoute("/universities/$slug")({
 });
 
 function UniversityDetail() {
-  const u = Route.useLoaderData();
+  const u = Route.useLoaderData() as University;
   return (
     <>
       <section className="relative overflow-hidden bg-navy pt-32 pb-20 text-white md:pt-40 md:pb-28">
