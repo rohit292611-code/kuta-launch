@@ -1,14 +1,14 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Award, Check, ExternalLink, MapPin, ArrowRight, Users, Building2, GraduationCap } from "lucide-react";
-import { findUniversity, universities } from "@/data/universities";
+import { findUniversity, universities, type University } from "@/data/universities";
 import { PageHero } from "@/components/layout/PageHero";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/universities/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): University => {
     const u = findUniversity(params.slug);
     if (!u) throw notFound();
     return u;
