@@ -11,7 +11,7 @@ import {
   defaultScholarshipTiers, defaultStats, sharedCampusGallery,
   type University, type CourseDetail,
 } from "@/data/universities";
-import { PageHero } from "@/components/layout/PageHero";
+
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
