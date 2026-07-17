@@ -51,7 +51,13 @@ export interface University {
   placement: string[];
   admissionSteps: string[];
   faqs: { q: string; a: string }[];
+  campusGallery?: string[];
+  courseDetails?: CourseDetail[];
+  scholarshipTiers?: ScholarshipTier[];
+  stats?: UniStat[];
 }
+
+export const sharedCampusGallery = [life1, life2, life3, life4];
 
 export const universities: University[] = [
   {
