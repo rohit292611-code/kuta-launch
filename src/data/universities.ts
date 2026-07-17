@@ -3,6 +3,30 @@ import svnImg from "@/assets/uni-svn.jpg";
 import sgvuImg from "@/assets/uni-sgvu.jpg";
 import sabarmatiImg from "@/assets/uni-sabarmati.jpg";
 import uttaranchalImg from "@/assets/uni-uttaranchal.jpg";
+import life1 from "@/assets/campus-life-1.jpg";
+import life2 from "@/assets/campus-life-2.jpg";
+import life3 from "@/assets/campus-life-3.jpg";
+import life4 from "@/assets/campus-life-4.jpg";
+
+export interface CourseDetail {
+  name: string;
+  duration: string;
+  mode: string;
+  fee: string;
+  category: "UG" | "PG" | "Diploma";
+}
+
+export interface ScholarshipTier {
+  label: string;
+  criteria: string;
+  discount: number; // percentage 0-100
+}
+
+export interface UniStat {
+  label: string;
+  value: number;
+  suffix?: string;
+}
 
 export interface University {
   slug: string;
