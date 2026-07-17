@@ -352,7 +352,7 @@ function UniversityDetail() {
       </Section>
 
       {/* ---------- SCHOLARSHIP SLIDERS ---------- */}
-      <Section title="Scholarships & Fee Waivers" eyebrow="Scholarships" className="bg-navy text-white">
+      <Section title={<span className="text-white">Scholarships & Fee Waivers</span>} eyebrow="Scholarships" className="bg-navy text-white">
         <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
           <div>
             <div className="text-xs uppercase tracking-widest text-orange-soft">Headline offer</div>
