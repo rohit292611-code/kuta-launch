@@ -3,6 +3,30 @@ import svnImg from "@/assets/uni-svn.jpg";
 import sgvuImg from "@/assets/uni-sgvu.jpg";
 import sabarmatiImg from "@/assets/uni-sabarmati.jpg";
 import uttaranchalImg from "@/assets/uni-uttaranchal.jpg";
+import life1 from "@/assets/campus-life-1.jpg";
+import life2 from "@/assets/campus-life-2.jpg";
+import life3 from "@/assets/campus-life-3.jpg";
+import life4 from "@/assets/campus-life-4.jpg";
+
+export interface CourseDetail {
+  name: string;
+  duration: string;
+  mode: string;
+  fee: string;
+  category: "UG" | "PG" | "Diploma";
+}
+
+export interface ScholarshipTier {
+  label: string;
+  criteria: string;
+  discount: number; // percentage 0-100
+}
+
+export interface UniStat {
+  label: string;
+  value: number;
+  suffix?: string;
+}
 
 export interface University {
   slug: string;
@@ -27,7 +51,13 @@ export interface University {
   placement: string[];
   admissionSteps: string[];
   faqs: { q: string; a: string }[];
+  campusGallery?: string[];
+  courseDetails?: CourseDetail[];
+  scholarshipTiers?: ScholarshipTier[];
+  stats?: UniStat[];
 }
+
+export const sharedCampusGallery = [life1, life2, life3, life4];
 
 export const universities: University[] = [
   {
@@ -200,3 +230,38 @@ export const universities: University[] = [
 
 export const findUniversity = (slug: string) =>
   universities.find((u) => u.slug === slug);
+
+const feeMap: Record<string, string> = {
+  "B.Com": "₹18,000/sem", "M.Com": "₹22,000/sem",
+  "B.Sc": "₹20,000/sem", "M.Sc": "₹24,000/sem",
+  "BBA": "₹28,000/sem", "MBA": "₹42,000/sem",
+  "BA": "₹15,000/sem", "MA": "₹18,000/sem",
+  "BCA": "₹26,000/sem", "MCA": "₹34,000/sem",
+  "PGDCA": "₹20,000/sem",
+};
+
+const isPG = (p: string) => /^(M|PG)/.test(p);
+
+export const deriveCourseDetails = (u: University): CourseDetail[] =>
+  u.courseDetails ?? u.programs.map((p) => ({
+    name: p,
+    duration: isPG(p) ? "2 Years" : p === "PGDCA" ? "1 Year" : "3 Years",
+    mode: u.categories.join(" · "),
+    fee: feeMap[p] ?? "On request",
+    category: p === "PGDCA" ? "Diploma" : isPG(p) ? "PG" : "UG",
+  }));
+
+export const defaultScholarshipTiers: ScholarshipTier[] = [
+  { label: "Merit Star", criteria: "85%+ in qualifying exam", discount: 30 },
+  { label: "Early Bird", criteria: "Apply within first 30 days", discount: 20 },
+  { label: "Defence & Divyang", criteria: "Wards of defence / PwD", discount: 25 },
+  { label: "Sibling Waiver", criteria: "Second family member enrolled", discount: 10 },
+];
+
+export const defaultStats: UniStat[] = [
+  { label: "Learners enrolled", value: 45, suffix: "K+" },
+  { label: "Programs offered", value: 60, suffix: "+" },
+  { label: "Recruiters", value: 250, suffix: "+" },
+  { label: "Placement rate", value: 92, suffix: "%" },
+];
+
