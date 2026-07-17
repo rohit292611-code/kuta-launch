@@ -4,6 +4,13 @@ import { Section } from "@/components/ui/section";
 import { institutionalServices } from "@/data/services";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
+import cctvImg from "@/assets/service-cctv.jpg";
+import projectorImg from "@/assets/service-projector.jpg";
+
+const serviceImages: Record<string, string> = {
+  "CCTV Installation": cctvImg,
+  "Projector Installation": projectorImg,
+};
 
 export const Route = createFileRoute("/institutional")({
   head: () => ({
