@@ -43,13 +43,38 @@ function Institutional() {
       />
       <Section title="Our capabilities" eyebrow="What we deliver">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {institutionalServices.map((s) => (
-            <div key={s.title} className="surface-card p-6">
-              <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-orange/15 text-orange"><s.icon className="h-5 w-5" /></span>
-              <h3 className="mt-4 text-base font-bold text-navy">{s.title}</h3>
-              <p className="mt-1.5 text-sm text-muted-foreground">{s.description}</p>
-            </div>
-          ))}
+          {institutionalServices.map((s) => {
+            const img = serviceImages[s.title];
+            return (
+              <div key={s.title} className="surface-card overflow-hidden p-0">
+                {img && (
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={img}
+                      alt={s.title}
+                      width={1024}
+                      height={640}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
+                    <span className="absolute left-4 top-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/90 text-orange shadow-lg backdrop-blur">
+                      <s.icon className="h-5 w-5" />
+                    </span>
+                  </div>
+                )}
+                <div className="p-6">
+                  {!img && (
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-orange/15 text-orange">
+                      <s.icon className="h-5 w-5" />
+                    </span>
+                  )}
+                  <h3 className={`${img ? "" : "mt-4"} text-base font-bold text-navy`}>{s.title}</h3>
+                  <p className="mt-1.5 text-sm text-muted-foreground">{s.description}</p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </Section>
       <Section title="Why institutions choose Kutastha" eyebrow="Advantages" className="bg-secondary/50">
