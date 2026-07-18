@@ -6,10 +6,26 @@ import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import cctvImg from "@/assets/service-cctv.jpg";
 import projectorImg from "@/assets/service-projector.jpg";
+import panelImg from "@/assets/service-interactive-panel.jpg";
+import computerImg from "@/assets/service-computer.jpg";
+import networkingImg from "@/assets/service-networking.jpg";
+import smartClassImg from "@/assets/service-smart-classroom.jpg";
+import audioImg from "@/assets/service-audio.jpg";
+import governmentImg from "@/assets/service-government.jpg";
+import amcImg from "@/assets/service-amc.jpg";
+import infraImg from "@/assets/service-infrastructure.jpg";
 
 const serviceImages: Record<string, string> = {
   "CCTV Installation": cctvImg,
   "Projector Installation": projectorImg,
+  "Interactive Panels": panelImg,
+  "Computer Supply": computerImg,
+  "Networking Solutions": networkingImg,
+  "Smart Classroom Setup": smartClassImg,
+  "Audio Systems": audioImg,
+  "Government Procurement": governmentImg,
+  "AMC Services": amcImg,
+  "IT Infrastructure": infraImg,
 };
 
 export const Route = createFileRoute("/institutional")({
