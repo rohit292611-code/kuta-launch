@@ -3,6 +3,7 @@ import svnImg from "@/assets/uni-svn.jpg";
 import sgvuImg from "@/assets/uni-sgvu.jpg";
 import sabarmatiImg from "@/assets/uni-sabarmati.jpg";
 import uttaranchalImg from "@/assets/uni-uttaranchal.jpg";
+import shooliniImg from "@/assets/uni-shoolini.jpg";
 import life1 from "@/assets/campus-life-1.jpg";
 import life2 from "@/assets/campus-life-2.jpg";
 import life3 from "@/assets/campus-life-3.jpg";
