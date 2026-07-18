@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Award, MapPin } from "lucide-react";
+import { ArrowUpRight, Award, MapPin, ExternalLink } from "lucide-react";
 import { universities } from "@/data/universities";
 import { Section } from "@/components/ui/section";
 
@@ -66,6 +66,15 @@ export function PartnerUniversities() {
                 </div>
               </div>
             </Link>
+            <a
+              href={u.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center justify-center gap-1.5 border-t border-hairline bg-secondary/40 py-2.5 text-xs font-semibold text-navy transition hover:bg-orange hover:text-white"
+            >
+              <ExternalLink className="h-3.5 w-3.5" /> Visit {u.short ?? "official"} website
+            </a>
           </motion.article>
         ))}
       </div>

@@ -3,6 +3,7 @@ import svnImg from "@/assets/uni-svn.jpg";
 import sgvuImg from "@/assets/uni-sgvu.jpg";
 import sabarmatiImg from "@/assets/uni-sabarmati.jpg";
 import uttaranchalImg from "@/assets/uni-uttaranchal.jpg";
+import shooliniImg from "@/assets/uni-shoolini.jpg";
 import life1 from "@/assets/campus-life-1.jpg";
 import life2 from "@/assets/campus-life-2.jpg";
 import life3 from "@/assets/campus-life-3.jpg";
@@ -224,6 +225,40 @@ export const universities: University[] = [
     ],
     faqs: [
       { q: "Is the MBA at Uttaranchal AICTE approved?", a: "Yes, the MBA programs at Uttaranchal University are AICTE-approved and industry aligned." },
+    ],
+  },
+  {
+    slug: "shoolini-university",
+    name: "Shoolini University",
+    short: "SU",
+    location: "Solan, Himachal Pradesh",
+    established: "2009",
+    tagline: "India's #1 private research university nestled in the Himalayan foothills of Solan.",
+    image: shooliniImg,
+    gallery: [shooliniImg],
+    website: "https://shooliniuniversity.com",
+    approvals: ["UGC", "NAAC A+", "AICTE", "BCI", "PCI"],
+    programs: ["BBA", "MBA", "BCA", "MCA", "B.Com", "M.Com", "B.Sc", "M.Sc", "BA", "MA"],
+    categories: ["Online", "Distance", "Regular"],
+    scholarship: "Merit & research scholarships up to 40%",
+    highlights: ["#1 Private University in Research (QS)", "NAAC A+", "Himalayan Green Campus"],
+    about:
+      "Shoolini University of Biotechnology and Management Sciences, based in Solan (Himachal Pradesh), is India's top-ranked private research university. It offers UG and PG programs across management, sciences, computing and humanities through its Online, Distance and Regular modes with an innovation-first academic culture.",
+    eligibility: {
+      ug: "10+2 in any stream from a recognized board with minimum 50% marks.",
+      pg: "Bachelor's degree in a relevant discipline with 50% aggregate.",
+    },
+    placement: ["Deloitte", "Amazon", "HDFC Bank", "Cipla", "Tech Mahindra"],
+    admissionSteps: [
+      "Free counselling with Kutastha",
+      "Program & specialization selection",
+      "Online application + document upload",
+      "Fee payment & confirmation",
+      "Onboarding on Shoolini Online",
+    ],
+    faqs: [
+      { q: "Is Shoolini's online degree UGC recognised?", a: "Yes, Shoolini University Online is UGC-DEB approved and its degrees are treated at par with regular mode degrees." },
+      { q: "What makes Shoolini different?", a: "Shoolini leads India's private universities in research citations and patents — an edge for career and PG applications." },
     ],
   },
 ];
