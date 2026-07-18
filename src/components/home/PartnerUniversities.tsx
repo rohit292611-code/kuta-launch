@@ -81,9 +81,3 @@ export function PartnerUniversities() {
     </Section>
   );
 }
-
-        ))}
-      </div>
-    </Section>
-  );
-}
