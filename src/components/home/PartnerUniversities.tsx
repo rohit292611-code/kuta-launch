@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Award, MapPin } from "lucide-react";
+import { ArrowUpRight, Award, MapPin, ExternalLink } from "lucide-react";
 import { universities } from "@/data/universities";
 import { Section } from "@/components/ui/section";
 
