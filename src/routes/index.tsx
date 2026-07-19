@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/home/Hero";
+import { UniversityShowcase } from "@/components/home/UniversityShowcase";
 import { PartnerUniversities } from "@/components/home/PartnerUniversities";
 import { About } from "@/components/home/About";
 import { ProgramsPreview } from "@/components/home/ProgramsPreview";
