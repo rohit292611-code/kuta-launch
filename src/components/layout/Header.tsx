@@ -10,6 +10,7 @@ const nav = [
   { label: "Home", to: "/" },
   { label: "Universities", to: "/universities" },
   { label: "Programs", to: "/programs" },
+  { label: "Services", to: "/services" },
   { label: "Admissions", to: "/admissions" },
   { label: "Scholarships", to: "/scholarships" },
   { label: "Institutional", to: "/institutional" },
