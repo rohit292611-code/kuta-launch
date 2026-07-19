@@ -38,22 +38,24 @@ export function UniversityShowcase() {
     return () => unsub();
   }, [rotation, step, count]);
 
-  // Autoplay
+  // Autoplay: advance one card, dwell, then advance again — so every university is fully visible
   useEffect(() => {
     if (prefersReduced) return;
-    let raf = 0;
-    let last = performance.now();
-    const tick = (now: number) => {
-      const dt = now - last;
-      last = now;
-      if (!pausedRef.current && !isDragging.current) {
-        rotation.set(rotation.get() - (dt / AUTOPLAY_MS) * step);
-      }
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [rotation, step, prefersReduced]);
+    const id = setInterval(() => {
+      if (pausedRef.current || isDragging.current) return;
+      const current = rotation.get();
+      const nearest = Math.round(-current / step);
+      const nextIdx = ((nearest + 1) % count + count) % count;
+      const target = -nearest * step - step; // always move forward one step
+      animate(rotation, target, {
+        type: "spring",
+        stiffness: 70,
+        damping: 20,
+        onComplete: () => setActive(((nextIdx) % count + count) % count),
+      });
+    }, DWELL_MS);
+    return () => clearInterval(id);
+  }, [rotation, step, count, prefersReduced]);
 
   const goTo = (idx: number) => {
     const current = rotation.get();
