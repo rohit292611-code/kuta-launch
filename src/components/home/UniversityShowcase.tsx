@@ -13,7 +13,7 @@ import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 
 const RADIUS = 460;
-const AUTOPLAY_MS = 4200;
+const DWELL_MS = 10000; // pause on each university so viewers can read it
 
 export function UniversityShowcase() {
   const items = universities;
