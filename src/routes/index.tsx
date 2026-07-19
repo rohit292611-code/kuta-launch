@@ -22,6 +22,7 @@ function Home() {
     <>
       <Hero />
       <Stats />
+      <UniversityShowcase />
       <PartnerUniversities />
       <About />
       <ProgramsPreview />
