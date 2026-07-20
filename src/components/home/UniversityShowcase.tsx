@@ -7,12 +7,11 @@ import {
   animate,
   useReducedMotion,
 } from "framer-motion";
-import { ArrowUpRight, ExternalLink, MapPin, Sparkles, Award } from "lucide-react";
+import { ArrowUpRight, ExternalLink, MapPin, Sparkles, Award, ChevronLeft, ChevronRight } from "lucide-react";
 import { universities } from "@/data/universities";
 import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 
-const RADIUS = 460;
 const DWELL_MS = 10000; // pause on each university so viewers can read it
 
 export function UniversityShowcase() {
@@ -22,12 +21,30 @@ export function UniversityShowcase() {
   const prefersReduced = useReducedMotion();
 
   const [active, setActive] = useState(0);
+  const [dims, setDims] = useState({ radius: 260, cardW: 220, cardH: 300, stageH: 380 });
   const rotation = useMotionValue(0);
   const stageRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const startRot = useRef(0);
   const pausedRef = useRef(false);
+
+  // Responsive stage dimensions so every card stays visible on any screen
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth;
+      if (w < 640) {
+        setDims({ radius: 220, cardW: 200, cardH: 280, stageH: 360 });
+      } else if (w < 1024) {
+        setDims({ radius: 360, cardW: 240, cardH: 340, stageH: 440 });
+      } else {
+        setDims({ radius: 460, cardW: 280, cardH: 380, stageH: 520 });
+      }
+    };
+    compute();
+    window.addEventListener("resize", compute);
+    return () => window.removeEventListener("resize", compute);
+  }, []);
 
   // Sync active index from rotation
   useEffect(() => {
@@ -45,13 +62,11 @@ export function UniversityShowcase() {
       if (pausedRef.current || isDragging.current) return;
       const current = rotation.get();
       const nearest = Math.round(-current / step);
-      const nextIdx = ((nearest + 1) % count + count) % count;
       const target = -nearest * step - step; // always move forward one step
       animate(rotation, target, {
         type: "spring",
         stiffness: 70,
         damping: 20,
-        onComplete: () => setActive(((nextIdx) % count + count) % count),
       });
     }, DWELL_MS);
     return () => clearInterval(id);
@@ -60,7 +75,6 @@ export function UniversityShowcase() {
   const goTo = (idx: number) => {
     const current = rotation.get();
     const target = -idx * step;
-    // shortest path
     let delta = target - current;
     delta = ((delta + 180) % 360 + 360) % 360 - 180;
     animate(rotation, current + delta, {
@@ -68,6 +82,13 @@ export function UniversityShowcase() {
       stiffness: 90,
       damping: 20,
     });
+  };
+
+  const nudge = (dir: 1 | -1) => {
+    const current = rotation.get();
+    const nearest = Math.round(-current / step);
+    const target = -(nearest + dir) * step;
+    animate(rotation, target, { type: "spring", stiffness: 90, damping: 20 });
   };
 
   const onPointerDown = (e: React.PointerEvent) => {
@@ -85,7 +106,6 @@ export function UniversityShowcase() {
     if (!isDragging.current) return;
     isDragging.current = false;
     (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-    // snap to nearest
     const current = rotation.get();
     const nearest = Math.round(-current / step);
     const target = -nearest * step;
@@ -114,51 +134,72 @@ export function UniversityShowcase() {
 
       <div className="grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-center">
         {/* 3D Carousel */}
-        <div
-          ref={stageRef}
-          onPointerEnter={() => (pausedRef.current = true)}
-          onPointerLeave={() => (pausedRef.current = false)}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerCancel={onPointerUp}
-          className="relative mx-auto h-[440px] w-full max-w-2xl cursor-grab select-none touch-none active:cursor-grabbing md:h-[520px]"
-          style={{ perspective: 1400 }}
-        >
-          {/* Reflective floor */}
-          <div className="pointer-events-none absolute inset-x-10 bottom-6 h-16 rounded-[100%] bg-navy/20 blur-2xl" />
-
-          <motion.div
-            className="relative h-full w-full"
-            style={{
-              transformStyle: "preserve-3d",
-              rotateY: rotation,
-            }}
+        <div className="relative">
+          <div
+            ref={stageRef}
+            onPointerEnter={() => (pausedRef.current = true)}
+            onPointerLeave={() => (pausedRef.current = false)}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={onPointerUp}
+            className="relative mx-auto w-full cursor-grab select-none touch-none active:cursor-grabbing"
+            style={{ perspective: 1400, height: dims.stageH }}
           >
-            {items.map((u, i) => (
-              <OrbitCard
-                key={u.slug}
-                uni={u}
-                angle={i * step}
-                isActive={i === active}
-                onClick={() => goTo(i)}
-                rotation={rotation}
-              />
-            ))}
-          </motion.div>
+            {/* Reflective floor */}
+            <div className="pointer-events-none absolute inset-x-10 bottom-6 h-16 rounded-[100%] bg-navy/20 blur-2xl" />
 
-          {/* Nav dots */}
-          <div className="absolute -bottom-4 left-1/2 flex -translate-x-1/2 gap-1.5">
-            {items.map((_, i) => (
-              <button
-                key={i}
-                aria-label={`Go to slide ${i + 1}`}
-                onClick={() => goTo(i)}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === active ? "w-8 bg-orange" : "w-3 bg-navy/25 hover:bg-navy/50"
-                }`}
-              />
-            ))}
+            <motion.div
+              className="relative h-full w-full"
+              style={{
+                transformStyle: "preserve-3d",
+                rotateY: rotation,
+              }}
+            >
+              {items.map((u, i) => (
+                <OrbitCard
+                  key={u.slug}
+                  uni={u}
+                  angle={i * step}
+                  isActive={i === active}
+                  onClick={() => goTo(i)}
+                  rotation={rotation}
+                  cardW={dims.cardW}
+                  cardH={dims.cardH}
+                  radius={dims.radius}
+                />
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Prev/Next controls */}
+          <div className="mt-4 flex items-center justify-center gap-3">
+            <button
+              aria-label="Previous university"
+              onClick={() => nudge(-1)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-background text-navy shadow-sm transition-colors hover:bg-secondary"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <div className="flex items-center gap-1.5">
+              {items.map((_, i) => (
+                <button
+                  key={i}
+                  aria-label={`Go to slide ${i + 1}`}
+                  onClick={() => goTo(i)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === active ? "w-8 bg-orange" : "w-3 bg-navy/25 hover:bg-navy/50"
+                  }`}
+                />
+              ))}
+            </div>
+            <button
+              aria-label="Next university"
+              onClick={() => nudge(1)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-hairline bg-background text-navy shadow-sm transition-colors hover:bg-secondary"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
 
@@ -171,18 +212,22 @@ export function UniversityShowcase() {
           className="relative"
         >
           <div className="surface-card overflow-hidden">
-            <div className="bg-navy p-6 text-white md:p-8">
-              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-orange-soft">
-                <Sparkles className="h-3.5 w-3.5" /> Now spinning
+            <div className="relative h-40 w-full overflow-hidden md:h-48">
+              <img src={activeUni.image} alt={activeUni.name} className="h-full w-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent" />
+              <div className="absolute inset-x-4 bottom-3">
+                <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-orange-soft">
+                  <Sparkles className="h-3.5 w-3.5" /> Now spinning
+                </div>
+                <div className="mt-1 text-lg font-bold text-white md:text-xl">{activeUni.name}</div>
               </div>
-              <h3 className="mt-3 text-2xl font-bold leading-tight md:text-3xl">
-                {activeUni.name}
-              </h3>
-              <div className="mt-2 flex items-center gap-1.5 text-sm text-white/75">
+            </div>
+            <div className="bg-navy p-6 text-white md:p-7">
+              <div className="flex items-center gap-1.5 text-sm text-white/75">
                 <MapPin className="h-4 w-4 text-orange" /> {activeUni.location} · Est {activeUni.established}
               </div>
-              <p className="mt-4 text-sm leading-relaxed text-white/80">{activeUni.tagline}</p>
-              <div className="mt-5 flex flex-wrap gap-1.5">
+              <p className="mt-3 text-sm leading-relaxed text-white/80">{activeUni.tagline}</p>
+              <div className="mt-4 flex flex-wrap gap-1.5">
                 {activeUni.approvals.map((a) => (
                   <span
                     key={a}
@@ -193,7 +238,7 @@ export function UniversityShowcase() {
                 ))}
               </div>
             </div>
-            <div className="p-6 md:p-8">
+            <div className="p-6 md:p-7">
               <div className="flex items-center gap-2 text-xs font-semibold text-orange">
                 <Award className="h-4 w-4" /> {activeUni.scholarship}
               </div>
@@ -242,41 +287,50 @@ function OrbitCard({
   isActive,
   onClick,
   rotation,
+  cardW,
+  cardH,
+  radius,
 }: {
   uni: (typeof universities)[number];
   angle: number;
   isActive: boolean;
   onClick: () => void;
   rotation: ReturnType<typeof useMotionValue<number>>;
+  cardW: number;
+  cardH: number;
+  radius: number;
 }) {
-  // brightness/opacity based on facing angle
   const opacity = useTransform(rotation, (r) => {
     const facing = Math.cos(((r + angle) * Math.PI) / 180);
-    return 0.35 + 0.65 * Math.max(0, facing);
+    return 0.3 + 0.7 * Math.max(0, facing);
   });
   const scale = useTransform(rotation, (r) => {
     const facing = Math.cos(((r + angle) * Math.PI) / 180);
-    return 0.85 + 0.2 * Math.max(0, facing);
+    return 0.82 + 0.22 * Math.max(0, facing);
   });
 
   return (
     <motion.button
       type="button"
       onClick={onClick}
-      className="absolute left-1/2 top-1/2 -ml-[140px] -mt-[190px] h-[380px] w-[280px] overflow-hidden rounded-3xl border border-white/40 bg-white shadow-[0_30px_60px_-25px_rgba(15,30,61,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange"
+      className="absolute left-1/2 top-1/2 overflow-hidden rounded-3xl border border-white/40 bg-white shadow-[0_30px_60px_-25px_rgba(15,30,61,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange"
       style={{
-        transform: `rotateY(${angle}deg) translateZ(${RADIUS}px)`,
+        width: cardW,
+        height: cardH,
+        marginLeft: -cardW / 2,
+        marginTop: -cardH / 2,
+        transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
         transformStyle: "preserve-3d",
-        backfaceVisibility: "hidden",
         opacity,
         scale,
       }}
     >
-      <div className="relative h-[62%] w-full overflow-hidden">
+      <div className="relative h-[62%] w-full overflow-hidden bg-navy/10">
         <img
           src={uni.image}
           alt={uni.name}
           draggable={false}
+          loading="lazy"
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-navy/85 via-navy/10 to-transparent" />
@@ -294,10 +348,10 @@ function OrbitCard({
           <div className="text-[10px] font-semibold uppercase tracking-wider text-white/80">
             {uni.location}
           </div>
-          <div className="text-base font-bold leading-tight text-white">{uni.name}</div>
+          <div className="text-sm font-bold leading-tight text-white md:text-base">{uni.name}</div>
         </div>
       </div>
-      <div className="flex h-[38%] flex-col justify-between p-4">
+      <div className="flex h-[38%] flex-col justify-between p-3 md:p-4">
         <p className="line-clamp-2 text-[11px] leading-snug text-muted-foreground">
           {uni.tagline}
         </p>
