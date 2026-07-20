@@ -37,16 +37,17 @@ export function Header() {
         scrolled ? "bg-background/85 backdrop-blur-xl border-b border-hairline" : "bg-transparent",
       )}
     >
-      <div className="container-x flex h-16 items-center justify-between md:h-20">
-        <Link to="/" className="flex items-center gap-2.5" aria-label={site.name}>
-          <img src={logoAsset.url} alt="" className="h-9 w-9 rounded-lg object-contain md:h-10 md:w-10" />
-          <div className="hidden leading-tight sm:block">
-            <div className="text-sm font-bold tracking-tight text-navy">{site.short}</div>
-            <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+      <div className="container-x flex h-16 items-center justify-between gap-4 md:h-20">
+        <Link to="/" className="flex items-center gap-3 pr-4 lg:pr-8" aria-label={site.name}>
+          <img src={logoAsset.url} alt="" className="h-10 w-10 rounded-lg object-contain md:h-11 md:w-11" />
+          <div className="leading-tight">
+            <div className="text-sm font-bold tracking-tight text-navy md:text-base">Kutastha</div>
+            <div className="hidden text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground sm:block">
               Consultancy Services
             </div>
           </div>
         </Link>
+
 
         <nav className="hidden items-center gap-1 lg:flex">
           {nav.map((item) => (
