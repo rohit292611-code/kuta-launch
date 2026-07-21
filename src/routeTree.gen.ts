@@ -24,6 +24,7 @@ import { Route as AdmissionsRouteImport } from './routes/admissions'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UniversitiesSlugRouteImport } from './routes/universities.$slug'
+import { Route as ProgramsSlugRouteImport } from './routes/programs.$slug'
 
 const UniversitiesRoute = UniversitiesRouteImport.update({
   id: '/universities',
@@ -100,6 +101,11 @@ const UniversitiesSlugRoute = UniversitiesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => UniversitiesRoute,
 } as any)
+const ProgramsSlugRoute = ProgramsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ProgramsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -110,12 +116,13 @@ export interface FileRoutesByFullPath {
   '/faqs': typeof FaqsRoute
   '/institutional': typeof InstitutionalRoute
   '/privacy': typeof PrivacyRoute
-  '/programs': typeof ProgramsRoute
+  '/programs': typeof ProgramsRouteWithChildren
   '/scholarships': typeof ScholarshipsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/universities': typeof UniversitiesRouteWithChildren
+  '/programs/$slug': typeof ProgramsSlugRoute
   '/universities/$slug': typeof UniversitiesSlugRoute
 }
 export interface FileRoutesByTo {
@@ -127,12 +134,13 @@ export interface FileRoutesByTo {
   '/faqs': typeof FaqsRoute
   '/institutional': typeof InstitutionalRoute
   '/privacy': typeof PrivacyRoute
-  '/programs': typeof ProgramsRoute
+  '/programs': typeof ProgramsRouteWithChildren
   '/scholarships': typeof ScholarshipsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/universities': typeof UniversitiesRouteWithChildren
+  '/programs/$slug': typeof ProgramsSlugRoute
   '/universities/$slug': typeof UniversitiesSlugRoute
 }
 export interface FileRoutesById {
@@ -145,12 +153,13 @@ export interface FileRoutesById {
   '/faqs': typeof FaqsRoute
   '/institutional': typeof InstitutionalRoute
   '/privacy': typeof PrivacyRoute
-  '/programs': typeof ProgramsRoute
+  '/programs': typeof ProgramsRouteWithChildren
   '/scholarships': typeof ScholarshipsRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/universities': typeof UniversitiesRouteWithChildren
+  '/programs/$slug': typeof ProgramsSlugRoute
   '/universities/$slug': typeof UniversitiesSlugRoute
 }
 export interface FileRouteTypes {
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/universities'
+    | '/programs/$slug'
     | '/universities/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/universities'
+    | '/programs/$slug'
     | '/universities/$slug'
   id:
     | '__root__'
@@ -204,6 +215,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/universities'
+    | '/programs/$slug'
     | '/universities/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -216,7 +228,7 @@ export interface RootRouteChildren {
   FaqsRoute: typeof FaqsRoute
   InstitutionalRoute: typeof InstitutionalRoute
   PrivacyRoute: typeof PrivacyRoute
-  ProgramsRoute: typeof ProgramsRoute
+  ProgramsRoute: typeof ProgramsRouteWithChildren
   ScholarshipsRoute: typeof ScholarshipsRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -331,8 +343,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UniversitiesSlugRouteImport
       parentRoute: typeof UniversitiesRoute
     }
+    '/programs/$slug': {
+      id: '/programs/$slug'
+      path: '/$slug'
+      fullPath: '/programs/$slug'
+      preLoaderRoute: typeof ProgramsSlugRouteImport
+      parentRoute: typeof ProgramsRoute
+    }
   }
 }
+
+interface ProgramsRouteChildren {
+  ProgramsSlugRoute: typeof ProgramsSlugRoute
+}
+
+const ProgramsRouteChildren: ProgramsRouteChildren = {
+  ProgramsSlugRoute: ProgramsSlugRoute,
+}
+
+const ProgramsRouteWithChildren = ProgramsRoute._addFileChildren(
+  ProgramsRouteChildren,
+)
 
 interface UniversitiesRouteChildren {
   UniversitiesSlugRoute: typeof UniversitiesSlugRoute
@@ -355,7 +386,7 @@ const rootRouteChildren: RootRouteChildren = {
   FaqsRoute: FaqsRoute,
   InstitutionalRoute: InstitutionalRoute,
   PrivacyRoute: PrivacyRoute,
-  ProgramsRoute: ProgramsRoute,
+  ProgramsRoute: ProgramsRouteWithChildren,
   ScholarshipsRoute: ScholarshipsRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
