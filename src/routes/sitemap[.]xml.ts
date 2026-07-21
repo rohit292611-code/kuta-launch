@@ -23,10 +23,14 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/privacy", priority: "0.3", changefreq: "yearly" },
           { path: "/terms", priority: "0.3", changefreq: "yearly" },
         ];
-        const dynamic = universities.map((u) => ({
+        const uniDynamic = universities.map((u) => ({
           path: `/universities/${u.slug}`, priority: "0.8", changefreq: "monthly",
         }));
-        const all = [...staticEntries, ...dynamic];
+        const { programs } = await import("@/data/programs");
+        const programDynamic = programs.map((p) => ({
+          path: `/programs/${p.id}`, priority: "0.7", changefreq: "monthly",
+        }));
+        const all = [...staticEntries, ...uniDynamic, ...programDynamic];
         const urls = all.map((e) =>
           `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`
         );
