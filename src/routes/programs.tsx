@@ -69,7 +69,7 @@ function ProgramsPage() {
                 </dl>
                 <div className="mt-6 flex items-center justify-between border-t border-hairline pt-4">
                   <span className="flex items-center gap-1.5 text-xs text-muted-foreground"><GraduationCap className="h-3.5 w-3.5" />{p.universities.length} Universities</span>
-                  <Link to="/admissions" className="inline-flex items-center gap-1 text-xs font-semibold text-navy hover:text-orange">Apply <ArrowRight className="h-3.5 w-3.5" /></Link>
+                  <Link to="/programs/$slug" params={{ slug: p.id }} className="inline-flex items-center gap-1 text-xs font-semibold text-navy hover:text-orange">Explore <ArrowRight className="h-3.5 w-3.5" /></Link>
                 </div>
               </motion.div>
             ))}

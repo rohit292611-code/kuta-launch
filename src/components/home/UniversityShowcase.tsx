@@ -7,7 +7,7 @@ import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import fallbackImg from "@/assets/campus-life-1.jpg";
 
-const DWELL_MS = 10000;
+const DWELL_MS = 2800;
 
 export function UniversityShowcase() {
   const items = universities;
@@ -36,7 +36,7 @@ export function UniversityShowcase() {
       id="showcase"
       eyebrow="Partner Universities"
       title={<>Meet India's top <span className="text-orange">UGC universities.</span></>}
-      subtitle="Each card holds for 10 seconds — swipe, click the arrows or let it rotate through every partner."
+      subtitle="Each card holds ~3 seconds — swipe, click the arrows or let it rotate through every partner."
       className="relative overflow-hidden bg-gradient-to-b from-background via-secondary/40 to-background"
     >
       <div className="pointer-events-none absolute inset-0 -z-10">
@@ -55,14 +55,14 @@ export function UniversityShowcase() {
             className="relative mx-auto h-[440px] w-full sm:h-[500px]"
             style={{ perspective: 1400 }}
           >
-            <AnimatePresence mode="wait" custom={dir}>
+            <AnimatePresence mode="wait" custom={dir} initial={false}>
               <motion.div
                 key={activeUni.slug}
                 custom={dir}
-                initial={{ rotateY: dir === 1 ? 90 : -90, opacity: 0, scale: 0.9 }}
-                animate={{ rotateY: 0, opacity: 1, scale: 1 }}
-                exit={{ rotateY: dir === 1 ? -90 : 90, opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                initial={{ x: dir === 1 ? 80 : -80, opacity: 0, scale: 0.96 }}
+                animate={{ x: 0, opacity: 1, scale: 1 }}
+                exit={{ x: dir === 1 ? -80 : 80, opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.2}
@@ -71,7 +71,6 @@ export function UniversityShowcase() {
                   else if (info.offset.x > 60) go(-1);
                 }}
                 className="absolute inset-0 overflow-hidden rounded-3xl border border-white/40 bg-white shadow-[0_40px_80px_-30px_rgba(15,30,61,0.55)]"
-                style={{ transformStyle: "preserve-3d" }}
               >
                 <UniCardBody uni={activeUni} />
               </motion.div>
@@ -111,7 +110,7 @@ export function UniversityShowcase() {
             </button>
           </div>
           <div className="mt-2 text-center text-xs text-muted-foreground">
-            {active + 1} / {count} · auto-advances every 10s
+            {active + 1} / {count} · auto-advances every 3s
           </div>
         </div>
 

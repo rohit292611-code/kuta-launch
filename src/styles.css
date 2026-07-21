@@ -200,3 +200,74 @@
     linear-gradient(90deg, oklch(0.24 0.07 259 / 0.06) 1px, transparent 1px);
   background-size: 44px 44px;
 }
+
+@utility glass-card {
+  background: color-mix(in oklab, white 78%, transparent);
+  border: 1px solid color-mix(in oklab, var(--navy) 8%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 20px 50px -25px oklch(0.24 0.07 259 / 0.35);
+}
+
+@utility glass-dark {
+  background: color-mix(in oklab, black 30%, transparent);
+  border: 1px solid color-mix(in oklab, white 12%, transparent);
+  backdrop-filter: blur(18px) saturate(140%);
+  border-radius: var(--radius-2xl);
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: var(--orange);
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  box-shadow: 0 10px 30px -12px oklch(0.72 0.19 51 / 0.55);
+  transition: transform 300ms var(--ease-out-soft), box-shadow 300ms var(--ease-out-soft), background 300ms;
+  &:hover { transform: translateY(-2px); box-shadow: 0 18px 40px -14px oklch(0.72 0.19 51 / 0.7); background: color-mix(in oklab, var(--orange) 92%, black); }
+  &:active { transform: translateY(0); }
+}
+
+@utility btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: white;
+  color: var(--navy);
+  border: 1px solid var(--hairline);
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+  transition: transform 300ms var(--ease-out-soft), box-shadow 300ms, border-color 300ms, background 300ms;
+  &:hover { transform: translateY(-2px); border-color: var(--navy); box-shadow: var(--shadow-elegant); }
+}
+
+@utility hover-lift {
+  transition: transform 350ms var(--ease-out-soft), box-shadow 350ms var(--ease-out-soft);
+  &:hover { transform: translateY(-4px); box-shadow: var(--shadow-float); }
+}
+
+@utility nav-underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: 4px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 350ms var(--ease-out-soft);
+  }
+  &:hover::after { transform: scaleX(1); }
+}
