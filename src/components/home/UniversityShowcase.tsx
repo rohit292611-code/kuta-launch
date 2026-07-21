@@ -110,7 +110,7 @@ export function UniversityShowcase() {
             </button>
           </div>
           <div className="mt-2 text-center text-xs text-muted-foreground">
-            {active + 1} / {count} · auto-advances every 10s
+            {active + 1} / {count} · auto-advances every 3s
           </div>
         </div>
 
