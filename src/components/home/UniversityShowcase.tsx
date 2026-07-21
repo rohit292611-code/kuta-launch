@@ -36,7 +36,7 @@ export function UniversityShowcase() {
       id="showcase"
       eyebrow="Partner Universities"
       title={<>Meet India's top <span className="text-orange">UGC universities.</span></>}
-      subtitle="Each card holds for 10 seconds — swipe, click the arrows or let it rotate through every partner."
+      subtitle="Each card holds ~3 seconds — swipe, click the arrows or let it rotate through every partner."
       className="relative overflow-hidden bg-gradient-to-b from-background via-secondary/40 to-background"
     >
       <div className="pointer-events-none absolute inset-0 -z-10">
