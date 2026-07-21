@@ -7,7 +7,7 @@ import { Section } from "@/components/ui/section";
 import { Button } from "@/components/ui/button";
 import fallbackImg from "@/assets/campus-life-1.jpg";
 
-const DWELL_MS = 10000;
+const DWELL_MS = 2800;
 
 export function UniversityShowcase() {
   const items = universities;
