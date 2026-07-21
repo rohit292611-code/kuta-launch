@@ -29,18 +29,20 @@ const universityCols: MegaColumn[] = [
   },
 ];
 
+const isPG = (code: string) => /^(M|PG)/.test(code);
+
 const programCols: MegaColumn[] = [
   {
     title: "Undergraduate",
     items: programs
-      .filter((p) => p.category === "UG")
+      .filter((p) => !isPG(p.code))
       .slice(0, 8)
       .map((p) => ({ label: p.name, to: "/programs/$slug", params: { slug: p.id }, desc: p.duration })),
   },
   {
     title: "Postgraduate",
     items: programs
-      .filter((p) => p.category === "PG")
+      .filter((p) => isPG(p.code))
       .slice(0, 8)
       .map((p) => ({ label: p.name, to: "/programs/$slug", params: { slug: p.id }, desc: p.duration })),
   },
